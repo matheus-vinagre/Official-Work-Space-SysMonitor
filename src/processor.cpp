@@ -1,7 +1,7 @@
 #include "processor.h"
 #include <string>
 #include <vector>
-#include <filesystem>
+#include <experimental/filesystem>
 #include <linux_parser.h>
 using std::stoull;
 using std::string;
@@ -37,6 +37,10 @@ float Processor::Utilization() {
   unsigned long long totaltime =
       usertime + nicetime + systemAlltime + idleAlltime + steal_ + virtalltime;
 
+  if(LinuxParser::prevProcessor.size() == 0 ){
+  	LinuxParser::InitializePrevProcessor(LinuxParser::CpuN());
+  }
+  
   vector<PrevProcessor> prevProcessor = LinuxParser::prevProcessor;
 
   prevProcessor[cpunumber_].set_user_period(Sub(usertime, prevProcessor[cpunumber_].user_temp()));

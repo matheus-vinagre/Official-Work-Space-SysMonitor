@@ -27,9 +27,17 @@ void ProcStatParsin();
 float MemoryUtilization();
 long UpTime();
 std::vector<int> Pids();
-inline int totalProcesses;
+int CpuN();
+  
+extern int totalProcesses;
+extern int runningProcesses;
+extern std::vector<PrevProcessor> prevProcessor;
+extern std::vector<std::vector<std::string>> cpuUtilization;
+extern int cpuN;
+extern std::vector<Process> prevProcesses;
+
+void InitializePrevProcessor(int N);
 int TotalProcesses();
-inline int runningProcesses;
 int RunningProcesses();
 std::string OperatingSystem();
 std::string Kernel();
@@ -48,13 +56,10 @@ enum CPUStates {
   kGuestNice_ = 9,
   kCpuNumber = 10
 };
-inline std::vector<PrevProcessor> prevProcessor(13);
-inline std::vector<std::vector<std::string>> cpuUtilization;
-inline int cpuN;
+
 std::vector<std::vector<std::string>> CpuUtilization();
 
 // Processes
-inline std::vector<Process> prevProcesses;
 long Jiffies();
 long ActiveJiffies();
 std::vector<long> ActiveJiffies(int pid);
